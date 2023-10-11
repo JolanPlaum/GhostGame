@@ -29,6 +29,7 @@ public class MovementBehavior : MonoBehaviour
 		_rigidbody = GetComponent<Rigidbody>();
 	}
 
+	// Movement is fixed, rotation happens once per frame
     protected virtual void FixedUpdate()
     {
 		HandleMovement();

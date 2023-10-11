@@ -26,7 +26,14 @@ public class PlayerPawn : MonoBehaviour
     }
 
     // Functions that should be called by a controller
-    public virtual void Move(Vector2 direction) { _movementBehavior.DesiredMovementDirection = direction.x * Vector3.right + direction.y * Vector3.forward; }
+    public virtual void Move(Vector2 input)
+    {
+        if (_movementBehavior == null) return;
+
+        Vector3 direction = input.x * Vector3.right + input.y * Vector3.forward;
+        _movementBehavior.DesiredMovementDirection = direction;
+        _movementBehavior.DesiredRotationDirection = direction;
+    }
 	public virtual void Jump() { }
 	public virtual void WorldSwitch() { }
 	public virtual void Action1() { }
