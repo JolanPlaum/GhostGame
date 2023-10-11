@@ -34,7 +34,12 @@ public class PlayerPawn : MonoBehaviour
         _movementBehavior.DesiredMovementDirection = direction;
         _movementBehavior.DesiredRotationDirection = direction;
     }
-	public virtual void Jump() { }
+	public virtual void Jump()
+    {
+        if (_jumpBehavior == null) return;
+
+        _jumpBehavior.Jump();
+    }
 	public virtual void WorldSwitch() { }
 	public virtual void Action1() { }
 	public virtual void Action2() { }
