@@ -12,15 +12,7 @@ public class SwitchWorldMaterials : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Bind material changes to world change event
-        GameMode mode = FindObjectOfType<GameMode>();
-        if (mode != null)
-        {
-            mode.OnWorldChanged += UpdateMaterials;
-            UpdateMaterials(mode.IsOverworld);
-        }
-
-        // Get all the materials of all children of this component
+        // Get all the renderers of all children of this component
         // BEWARE: if the materials are different at the start,
         //  they will become the same after a world change event
 		Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
@@ -30,6 +22,14 @@ public class SwitchWorldMaterials : MonoBehaviour
             {
                 _attachedMaterials.Add(renderer);
             }
+        }
+
+        // Bind material changes to world change event
+        GameMode mode = FindObjectOfType<GameMode>();
+        if (mode != null)
+        {
+            mode.OnWorldChanged += UpdateMaterials;
+            UpdateMaterials(mode.IsOverworld);
         }
 	}
 

@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OverworldPlayerPawn : PlayerPawn
+public class GhostPlayerPawn : PlayerPawn
 {
+	private GameMode _gameMode;
+
+	// Overworld behaviors
 	private DashBehavior _dashBehavior;
 	private PossessBehavior _possessBehavior;
+
 
 	// Get the extra behaviors
 	protected override void Awake()
@@ -14,6 +18,12 @@ public class OverworldPlayerPawn : PlayerPawn
 
 		_dashBehavior = GetComponent<DashBehavior>();
 		_possessBehavior = GetComponent<PossessBehavior>();
+	}
+
+	// Find the game mode in the scene
+	void Start()
+	{
+		_gameMode = FindObjectOfType<GameMode>();
 	}
 
 	// Overworld specific actions
