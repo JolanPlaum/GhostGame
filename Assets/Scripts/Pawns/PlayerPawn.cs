@@ -40,7 +40,12 @@ public class PlayerPawn : MonoBehaviour
 
         _jumpBehavior.Jump();
     }
-	public virtual void WorldSwitch() { }
+	public virtual void WorldSwitch()
+	{
+		if (_worldSwitchingBehavior == null) return;
+
+		_worldSwitchingBehavior.WorldSwitch();
+	}
 	public virtual void Action1() { }
 	public virtual void Action2() { }
 }
