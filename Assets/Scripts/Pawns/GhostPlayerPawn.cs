@@ -26,10 +26,43 @@ public class GhostPlayerPawn : PlayerPawn
 		_gameMode = FindObjectOfType<GameMode>();
 	}
 
+	// Override base actions
+	public override void Move(Vector2 input)
+	{
+		if (_dashBehavior && _dashBehavior.IsDashing) return;
+
+		base.Move(input);
+	}
+	public override void Jump()
+	{
+		if (_dashBehavior && _dashBehavior.IsDashing) return;
+
+		base.Jump();
+	}
+
 	// World specific actions
 	public override void Action1()
 	{
-		//_dashBehavior.Dash();
+		if (_gameMode == null) return;
+
+		// Overworld behavior
+		if (_gameMode.IsOverworld)
+		{
+			if (_dashBehavior == null) return;
+			if (_dashBehavior.Dash() == false) return;
+
+			if (_movementBehavior)
+			{
+				_movementBehavior.DesiredMovementDirection = Vector3.zero;
+				_movementBehavior.DesiredRotationDirection = Vector3.zero;
+			}
+		}
+
+		// Underworld behavior
+		else
+		{
+
+		}
 	}
 	public override void Action2()
 	{
