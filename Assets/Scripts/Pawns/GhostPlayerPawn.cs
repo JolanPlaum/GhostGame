@@ -26,7 +26,7 @@ public class GhostPlayerPawn : PlayerPawn
 		_gameMode = FindObjectOfType<GameMode>();
 	}
 
-	// Overworld specific actions
+	// World specific actions
 	public override void Action1()
 	{
 		//_dashBehavior.Dash();
