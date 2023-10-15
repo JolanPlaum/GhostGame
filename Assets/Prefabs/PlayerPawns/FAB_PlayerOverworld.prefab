@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FAB_PlayerOverworld
       objectReference: {fileID: 0}
+    - target: {fileID: 864299273942207115, guid: 7d1848f5652d5904fb6dd75859d6d0c7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1347944357414816271, guid: 7d1848f5652d5904fb6dd75859d6d0c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,6 +67,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137620080460404486, guid: 7d1848f5652d5904fb6dd75859d6d0c7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2acecfa9fcd52ae40869ba9e1cb213ee, type: 2}
+    - target: {fileID: 8187110836055570639, guid: 7d1848f5652d5904fb6dd75859d6d0c7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8450529014678327240, guid: 7d1848f5652d5904fb6dd75859d6d0c7,
         type: 3}

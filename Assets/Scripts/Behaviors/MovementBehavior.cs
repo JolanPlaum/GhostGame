@@ -7,6 +7,7 @@ public class MovementBehavior : MonoBehaviour
 {
     [SerializeField] protected float _movementSpeed = 10.0f;
 	[SerializeField] protected float _rotationSpeed = 90.0f;
+	[SerializeField] protected bool _instantRotation = false;
 	protected Rigidbody _rigidbody;
 
 	private Vector3 _desiredMovementDirection = Vector3.zero;
@@ -47,6 +48,12 @@ public class MovementBehavior : MonoBehaviour
 	}
 	protected virtual void HandleRotation()
 	{
+		if (_instantRotation)
+		{
+			transform.LookAt(transform.position + _desiredRotationDirection);
+			return;
+		}
+
 		float targetAngle = Vector3.Angle(_desiredRotationDirection, transform.forward);
 
 		if (Vector3.Cross(_desiredRotationDirection, transform.forward).y > 0)
@@ -54,8 +61,8 @@ public class MovementBehavior : MonoBehaviour
 			targetAngle *= -1;
 		}
 
-		float rotationAngle = Mathf.Clamp(targetAngle, -_rotationSpeed, _rotationSpeed);
+		float rotationAngle = Mathf.Clamp(targetAngle, -_rotationSpeed * Time.deltaTime, _rotationSpeed * Time.deltaTime);
 
-		transform.Rotate(0.0f, rotationAngle * Time.deltaTime, 0.0f);
+		transform.Rotate(0.0f, rotationAngle, 0.0f);
 	}
 }
