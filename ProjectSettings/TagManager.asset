@@ -8,6 +8,7 @@ TagManager:
   - Grab
   - Interact
   - Friendly
+  - WorldSwitch
   layers:
   - Default
   - TransparentFX
