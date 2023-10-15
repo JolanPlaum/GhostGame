@@ -17,4 +17,11 @@ public class GameMode : MonoBehaviour
 
 	public delegate void WorldChange(bool isOverworld);
     public event WorldChange OnWorldChanged;
+
+	// Update is called once per frame
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+			Application.Quit();
+	}
 }
