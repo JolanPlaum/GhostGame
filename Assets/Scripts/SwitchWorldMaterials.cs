@@ -7,7 +7,7 @@ public class SwitchWorldMaterials : MonoBehaviour
     [SerializeField] private Material _overworldMaterial;
     [SerializeField] private Material _underworldMaterial;
 
-    private List<Renderer> _attachedMaterials = new List<Renderer>();
+    [SerializeField] private List<Renderer> _attachedMaterials = new List<Renderer>();
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,16 @@ public class SwitchWorldMaterials : MonoBehaviour
         // Get all the renderers of all children of this component
         // BEWARE: if the materials are different at the start,
         //  they will become the same after a world change event
-		Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
+        if (_attachedMaterials.Count == 0)
         {
-            if (renderer)
+
+            Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers)
             {
-                _attachedMaterials.Add(renderer);
+                if (renderer)
+                {
+                    _attachedMaterials.Add(renderer);
+                }
             }
         }
 
