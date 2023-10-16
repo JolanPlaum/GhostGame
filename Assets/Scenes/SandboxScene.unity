@@ -1612,6 +1612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _overworldMaterial: {fileID: 2100000, guid: f00e2dc578f31b04eaa4b60e7f71c7b6, type: 2}
   _underworldMaterial: {fileID: 2100000, guid: 658465ebcca5fb2458e6e71f98865bdb, type: 2}
+  _attachedMaterials: []
 --- !u!1 &880557900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,7 +3615,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1315242758}
-  m_VersionIndex: 1225
+  m_VersionIndex: 1390
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
