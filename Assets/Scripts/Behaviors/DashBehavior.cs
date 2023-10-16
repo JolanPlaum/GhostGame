@@ -65,7 +65,7 @@ public class DashBehavior : MonoBehaviour
 		if (_rigidbody == null || IsDashing) return false;
 
 		// Not sure why but sometimes unity leaves the velocity at -2.384186E-06
-		if (Mathf.Abs(_rigidbody.velocity.y) <= 0.00001)
+		if (Mathf.Abs(_rigidbody.velocity.y) <= 0.001)
 		{
 			IsDashing = true;
 			return true;
