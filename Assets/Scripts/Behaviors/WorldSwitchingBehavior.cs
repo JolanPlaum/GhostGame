@@ -23,7 +23,7 @@ public class WorldSwitchingBehavior : MonoBehaviour
 	}
 
 	// Find game mode in the scene
-	void Awake()
+	private void Start()
 	{
 		_gameMode = FindObjectOfType<GameMode>();
 	}
