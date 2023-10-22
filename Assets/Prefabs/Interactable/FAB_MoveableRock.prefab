@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7059190218518059067}
   - component: {fileID: 8601931844378842192}
   - component: {fileID: 2551651150758912054}
+  - component: {fileID: 4924510891287892294}
   m_Layer: 7
   m_Name: FAB_MoveableRock
   m_TagString: Interact
@@ -166,6 +167,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &4924510891287892294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672462417059847117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e553798440d8f548b18ea8652cb5f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overworldMaterial: {fileID: 2100000, guid: 273d4cf723f2a3f47b226f1cdd885705, type: 2}
+  _underworldMaterial: {fileID: 2100000, guid: fc806f08374ee0147898f12446cdf309, type: 2}
+  _attachedMaterials: []
 --- !u!1 &6658529154292695328
 GameObject:
   m_ObjectHideFlags: 0
