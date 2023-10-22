@@ -7,6 +7,7 @@ public class MoveableBehavior : InteractableBehavior
 {
 	[SerializeField] private float _moveSpeed = 5f;
 	[SerializeField] private float _moveDistance = 2f;
+	[SerializeField] private Collider _triggerCollider;
 	private Rigidbody _rigidbody = null;
 	private Vector3 _moveDirection = Vector3.zero;
 	private bool _isMoving = false;
@@ -70,11 +71,14 @@ public class MoveableBehavior : InteractableBehavior
 		_moveDirection.Normalize();
 
 		// Don't move if this object will be obstructed by the world
-		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _moveDistance);
+		// TODO: THERE IS A BUG -> The trigger box is also taken into account, fix this
+		if (_triggerCollider != null) _triggerCollider.enabled = false;
+		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _moveDistance, QueryTriggerInteraction.Ignore);
 		if (hits.Length > 0)
 		{
 			StopMoving();
 		}
+		if (_triggerCollider != null) _triggerCollider.enabled = true;
 	}
 
 	// Helper function
