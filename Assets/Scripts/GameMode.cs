@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMode : MonoBehaviour
 {
@@ -21,7 +22,12 @@ public class GameMode : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+        // Close the game
 		if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
+
+		// Reset the level
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
