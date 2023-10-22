@@ -10,6 +10,9 @@ public class GhostPlayerPawn : PlayerPawn
 	private DashBehavior _dashBehavior;
 	private PossessBehavior _possessBehavior;
 
+	// Underworld behaviors
+	private InteractBehavior _interactBehavior;
+
 
 	// Get the extra behaviors
 	protected override void Awake()
@@ -18,6 +21,8 @@ public class GhostPlayerPawn : PlayerPawn
 
 		_dashBehavior = GetComponent<DashBehavior>();
 		_possessBehavior = GetComponent<PossessBehavior>();
+
+		_interactBehavior = GetComponent<InteractBehavior>();
 	}
 
 	// Find the game mode in the scene
@@ -61,7 +66,8 @@ public class GhostPlayerPawn : PlayerPawn
 		// Underworld behavior
 		else
 		{
-
+			if (_interactBehavior == null) return;
+			_interactBehavior.Interact();
 		}
 	}
 	public override void Action2()
