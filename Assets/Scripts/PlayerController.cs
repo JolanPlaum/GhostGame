@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 		// Controller can not exist without pawn
 		if (pawn == null) return;
 
-		// Don't switch if the new pawn is already being controller
+		// Don't switch if the new pawn is already being controlled
 		if (pawn.Controller != null) return;
 
 		// Make sure to remove this controller from previous pawn
