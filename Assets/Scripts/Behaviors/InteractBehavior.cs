@@ -35,7 +35,7 @@ public class InteractBehavior : MonoBehaviour
 		// 2. Interact with the object
 		// (3.) Make player immovable for a period of time
 
-		_interactableBehavior.Execute();
+		_interactableBehavior.Execute(gameObject);
 	}
 
 	// Wrap interactable object switching in a function

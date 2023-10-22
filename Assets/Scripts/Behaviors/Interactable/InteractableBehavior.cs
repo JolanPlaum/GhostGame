@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractableBehavior : MonoBehaviour
 {
-	protected GameObject _playerTarget;
+	protected PlayerController _playerTarget;
 	protected bool _isPlayerInFacinity;
 
 	private bool _isSelected;
@@ -15,28 +15,29 @@ public class InteractableBehavior : MonoBehaviour
 	}
 
 	// Find the player at the start of the game
-	private void Start()
+	protected virtual void Start()
 	{
-		GhostPlayerPawn player = FindObjectOfType<GhostPlayerPawn>();
-		if (player) _playerTarget = player.gameObject;
+		_playerTarget = FindObjectOfType<PlayerController>();
 	}
 
 	// Check if player object is entering/exiting this object
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject != _playerTarget) return;
+		if (_playerTarget == null) return;
+		if (other.gameObject != _playerTarget.Pawn.gameObject) return;
 
 		_isPlayerInFacinity = true;
 	}
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.gameObject != _playerTarget) return;
+		if (_playerTarget == null) return;
+		if (other.gameObject != _playerTarget.Pawn.gameObject) return;
 
 		_isPlayerInFacinity = false;
 	}
 
 	// Public interface
-	public virtual void Execute()
+	public virtual void Execute(GameObject other)
 	{
 
 	}
