@@ -9,6 +9,7 @@ public class MoveableBehavior : InteractableBehavior
 	[SerializeField] private float _moveDistance = 2f;
 	[SerializeField] private Collider _triggerCollider;
 	private Rigidbody _rigidbody = null;
+	private Collider _collider = null;
 	private Vector3 _moveDirection = Vector3.zero;
 	private bool _isMoving = false;
 	private float _distanceSoFar;
@@ -17,6 +18,10 @@ public class MoveableBehavior : InteractableBehavior
 	private void Awake()
 	{
 		_rigidbody = GetComponentInParent<Rigidbody>();
+		if (_rigidbody != null )
+		{
+			_collider = _rigidbody.GetComponent<Collider>();
+		}
 	}
 
 	// Movement inside of fixed update
@@ -71,12 +76,44 @@ public class MoveableBehavior : InteractableBehavior
 		_moveDirection.Normalize();
 
 		// Don't move if this object will be obstructed by the world
-		// TODO: THERE IS A BUG -> The trigger box is also taken into account, fix this
 		if (_triggerCollider != null) _triggerCollider.enabled = false;
 		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _moveDistance, QueryTriggerInteraction.Ignore);
 		if (hits.Length > 0)
 		{
-			StopMoving();
+			//Foreach hit:
+			// 1. Get the hit collider
+			// 2. Get the max/min bounds of the hit collider
+			// 3. Get the max/min bounds of this object's collider
+			// 4. Depending on the _moveDirection, check if X/Z are close to equal
+			// 5. Always check if Y are close to equal
+			foreach (RaycastHit hit in hits)
+			{
+				Vector3 min1 = _collider.bounds.min;
+				Vector3 max1 = _collider.bounds.max;
+				Vector3 min2 = hit.collider.bounds.min;
+				Vector3 max2 = hit.collider.bounds.max;
+
+				if (_moveDirection.x == 0f) // moving on Z
+				{
+					if (!(min1.x >= max2.x || max1.x <= min2.x))
+					{
+						if (!(min1.y >= max2.y || max1.y <= min2.y))
+						{
+							StopMoving();
+						}
+					}
+				}
+				else if (_moveDirection.z == 0f) // moving on X
+				{
+					if (!(min1.z >= max2.z || max1.z <= min2.z))
+					{
+						if (!(min1.y >= max2.y || max1.y <= min2.y))
+						{
+							StopMoving();
+						}
+					}
+				}
+            }
 		}
 		if (_triggerCollider != null) _triggerCollider.enabled = true;
 	}
