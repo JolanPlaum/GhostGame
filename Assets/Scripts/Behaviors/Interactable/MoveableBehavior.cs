@@ -77,7 +77,7 @@ public class MoveableBehavior : InteractableBehavior
 
 		// Don't move if this object will be obstructed by the world
 		if (_triggerCollider != null) _triggerCollider.enabled = false;
-		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _moveDistance, QueryTriggerInteraction.Collide);
+		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _moveDistance, QueryTriggerInteraction.Ignore);
 		if (hits.Length > 0)
 		{
 			//Foreach hit:

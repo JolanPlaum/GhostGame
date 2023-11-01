@@ -49,7 +49,7 @@ public class MovementRockBehavior : MovementBehavior
 		_moveDirection.Normalize();
 
 		// Don't move if this object will be obstructed by the world
-		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _movementDistance, QueryTriggerInteraction.Collide);
+		RaycastHit[] hits = _rigidbody.SweepTestAll(_moveDirection, _movementDistance, QueryTriggerInteraction.Ignore);
 
 		//Foreach hit:
 		// 1. Get the max/min bounds of this object's collider
