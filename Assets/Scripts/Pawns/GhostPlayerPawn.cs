@@ -12,6 +12,7 @@ public class GhostPlayerPawn : PlayerPawn
 
 	// Underworld behaviors
 	private InteractBehavior _interactBehavior;
+	private GrabBehavior _grabBehavior;
 
 
 	// Get the extra behaviors
@@ -23,6 +24,7 @@ public class GhostPlayerPawn : PlayerPawn
 		_possessBehavior = GetComponent<PossessBehavior>();
 
 		_interactBehavior = GetComponent<InteractBehavior>();
+		_grabBehavior = GetComponent<GrabBehavior>();
 	}
 
 	// Find the game mode in the scene
@@ -83,6 +85,7 @@ public class GhostPlayerPawn : PlayerPawn
 		// Underworld behavior
 		else
 		{
+			_grabBehavior.Grab();
 		}
 	}
 }
