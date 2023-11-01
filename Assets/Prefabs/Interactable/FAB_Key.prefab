@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 7244211525992800106}
   - component: {fileID: 416053115613600139}
   - component: {fileID: 4849862125034121445}
+  - component: {fileID: 3319007085097360612}
   m_Layer: 0
   m_Name: FAB_Key
   m_TagString: Grab
@@ -319,6 +320,18 @@ MonoBehaviour:
   _overworldMaterial: {fileID: 2100000, guid: 757a2d05c38f94b4ca7f317490eb2b38, type: 2}
   _underworldMaterial: {fileID: 2100000, guid: daa4591aca3e8dc418f75852a66dc305, type: 2}
   _attachedMaterials: []
+--- !u!114 &3319007085097360612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836196426471303016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56ebc4e107b27e46b7424484643e5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9124013278111862163
 GameObject:
   m_ObjectHideFlags: 0
