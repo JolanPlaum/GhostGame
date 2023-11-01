@@ -38,5 +38,11 @@ public class PossessBehavior : MonoBehaviour
 		if (_pawn == null || _pawn.Controller == null) return;
 
 		_pawn.Controller.SwitchPawn(_possessablePawn);
-    }
+
+		// If this object is not controlled after switch, delete it
+		if (_pawn.Controller == null)
+		{
+			Destroy(gameObject);
+		}
+	}
 }
