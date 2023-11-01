@@ -9,6 +9,10 @@ public class GrabBehavior : MonoBehaviour
 	private GameObject _grabbableObject = null;
 
 	private GameObject _heldObject = null;
+	public GameObject HeldObject
+	{
+		get { return _heldObject; }
+	}
 
 	// Check if this object is near/far a grabbable object
 	private void OnTriggerEnter(Collider other)
@@ -40,15 +44,20 @@ public class GrabBehavior : MonoBehaviour
 		if (_heldObject == null) return;
 
 		_heldObject.transform.SetParent(null);
+		_heldObject.transform.position = new Vector3(
+			Mathf.Round(_heldObject.transform.position.x),
+			Mathf.Round(_heldObject.transform.position.y),
+			Mathf.Round(_heldObject.transform.position.z));
+		_heldObject.transform.localRotation = Quaternion.identity;
 		_heldObject = null;
 	}
 	private void GrabNearbyObject()
 	{
 		if (_grabbableObject == null) return;
 
+		_grabbableObject.transform.localPosition = _handPosition.position;
+		_grabbableObject.transform.localRotation = _handPosition.rotation;
 		_grabbableObject.transform.SetParent(_handPosition);
-		_grabbableObject.transform.localPosition = Vector3.zero;
-		_grabbableObject.transform.localRotation = Quaternion.identity;
 
 		_heldObject = _grabbableObject;
 		_grabbableObject = null;
