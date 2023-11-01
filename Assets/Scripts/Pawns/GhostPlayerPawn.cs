@@ -72,6 +72,17 @@ public class GhostPlayerPawn : PlayerPawn
 	}
 	public override void Action2()
 	{
-		//_possessBehavior.Possess();
+		if (_gameMode == null) return;
+
+		// Overworld behavior
+		if (_gameMode.IsOverworld)
+		{
+			_possessBehavior.Possess();
+		}
+
+		// Underworld behavior
+		else
+		{
+		}
 	}
 }
