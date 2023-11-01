@@ -25,7 +25,7 @@ public class MoveableBehavior : InteractableBehavior
 	}
 
 	// Movement inside of fixed update
-	private void Update()
+	private void FixedUpdate()
 	{
 		if (_isMoving)
 		{
