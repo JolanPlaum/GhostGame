@@ -11,7 +11,6 @@ public class AttachTopCollider : MonoBehaviour
 	// Check if an object is entering/exiting top trigger
 	private void OnTriggerEnter(Collider other)
 	{
-		int mask = LayerMask.NameToLayer(DYNAMIC_LAYER);
 		if (other.isTrigger == false && other.gameObject.layer == LayerMask.NameToLayer(DYNAMIC_LAYER))
 		{
 			_colliders.Add(other);

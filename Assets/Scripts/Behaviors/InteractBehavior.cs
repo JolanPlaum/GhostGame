@@ -31,6 +31,7 @@ public class InteractBehavior : MonoBehaviour
 	{
 		if (_interactableBehavior == null) return;
 
+		//TODO:
 		// 1. Face the object you're interacting with
 		// 2. Interact with the object
 		// (3.) Make player immovable for a period of time
