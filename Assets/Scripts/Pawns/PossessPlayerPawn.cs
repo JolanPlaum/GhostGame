@@ -7,14 +7,6 @@ public class PossessPlayerPawn : PlayerPawn
 	[SerializeField] private GameObject _defaultPlayer;
 	[SerializeField] private Transform _spawnPosition;
 
-	// Only update movement input if it's not 0
-	public override void Move(Vector2 input)
-	{
-		if (input.sqrMagnitude <= float.Epsilon) return;
-
-		base.Move(input);
-	}
-
 	// Unpossess behavior
 	public override void Action2()
 	{
