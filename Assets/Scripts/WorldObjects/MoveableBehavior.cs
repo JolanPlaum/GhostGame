@@ -93,6 +93,14 @@ public class MoveableBehavior : InteractableBehavior
 				Vector3 min2 = hit.collider.bounds.min;
 				Vector3 max2 = hit.collider.bounds.max;
 
+				min1.x += 0.1f;
+				min1.y += 0.1f;
+				min1.z += 0.1f;
+
+				max1.x -= 0.1f;
+				max1.y -= 0.1f;
+				max1.z -= 0.1f;
+
 				if (_moveDirection.x == 0f) // moving on Z
 				{
 					if (!(min1.x >= max2.x || max1.x <= min2.x))
