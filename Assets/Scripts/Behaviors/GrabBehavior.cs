@@ -14,6 +14,16 @@ public class GrabBehavior : MonoBehaviour
 		get { return _heldObject; }
 	}
 
+	// Drop any held object if switching to the overworld
+	private void Start()
+	{
+		GameMode mode = FindObjectOfType<GameMode>();
+		if (mode != null)
+		{
+			mode.OnWorldChanged += DropHeldObject;
+		}
+	}
+
 	// Check if this object is near/far a grabbable object
 	private void OnTriggerEnter(Collider other)
 	{
@@ -39,7 +49,7 @@ public class GrabBehavior : MonoBehaviour
     }
 
 	// Helper functions
-	private void DropHeldObject()
+	private void DropHeldObject(bool isOverworld = false)
 	{
 		if (_heldObject == null) return;
 
