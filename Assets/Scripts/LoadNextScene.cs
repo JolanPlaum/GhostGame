@@ -11,6 +11,7 @@ public class LoadNextScene : MonoBehaviour
 	// Check if this object is near/far a grabbable object
 	private void OnTriggerEnter(Collider other)
 	{
+		if (other.isTrigger == true) return;
         if (other.GetComponent<GhostPlayerPawn>() == null) return;
 
 		Invoke(nameof(Load), _loadDelay);
