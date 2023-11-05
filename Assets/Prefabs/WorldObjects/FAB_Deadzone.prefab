@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3917467994965788698}
   - component: {fileID: 1365045476597938914}
   - component: {fileID: 1817331648634347190}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FAB_Deadzone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
