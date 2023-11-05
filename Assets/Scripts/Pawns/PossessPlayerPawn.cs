@@ -6,6 +6,19 @@ public class PossessPlayerPawn : PlayerPawn
 {
 	[SerializeField] private GameObject _defaultPlayer;
 	[SerializeField] private Transform _spawnPosition;
+	private bool _hasReleased = false;
+
+	// Only listen to move input after the player has released at least once
+	public override void Move(Vector2 input)
+	{
+		if (_hasReleased)
+			base.Move(input);
+		else
+		{
+			if (input == Vector2.zero)
+				_hasReleased = true;
+		}
+	}
 
 	// Unpossess behavior
 	public override void Action2()
