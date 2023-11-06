@@ -27,7 +27,7 @@ public class GameMode : MonoBehaviour
 			Application.Quit();
 
 		// Reset the level
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
