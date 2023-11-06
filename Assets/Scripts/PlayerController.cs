@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
 		set { _pawn = value; }
 	}
 
+	private bool _isKeyboard = true;
+	public bool IsKeyboard
+	{
+		get { return _isKeyboard; }
+	}
+
 	// Make sure to enable/disable the input asset
 	private void OnEnable()
 	{
@@ -42,6 +48,7 @@ public class PlayerController : MonoBehaviour
 		_action1 = _inputAsset.FindActionMap("Gameplay").FindAction("Action1");
 		_action2 = _inputAsset.FindActionMap("Gameplay").FindAction("Action2");
 
+		if (_moveAction != null) _moveAction.performed += HandleMovementInputDevice;
 		if (_jumpAction != null) _jumpAction.performed += HandleJumpInput;
 		if (_worldSwitchAction != null) _worldSwitchAction.performed += HandleWorldSwitchInput;
 		if (_action1 != null) _action1.performed += HandleAction1Input;
@@ -92,23 +99,32 @@ public class PlayerController : MonoBehaviour
 		if (_moveAction == null) return;
 
 		Vector2 movement = _moveAction.ReadValue<Vector2>();
+		//Debug.Log(_moveAction.activeControl.device.name);
 
 		_pawn.Move(movement);
+	}
+	private void HandleMovementInputDevice(InputAction.CallbackContext context)
+	{
+		_isKeyboard = context.control.device.name == "Keyboard";
 	}
 	private void HandleJumpInput(InputAction.CallbackContext context)
 	{
 		_pawn.Jump();
+		_isKeyboard = context.control.device.name == "Keyboard";
 	}
 	private void HandleWorldSwitchInput(InputAction.CallbackContext context)
 	{
 		_pawn.WorldSwitch();
+		_isKeyboard = context.control.device.name == "Keyboard";
 	}
 	private void HandleAction1Input(InputAction.CallbackContext context)
 	{
 		_pawn.Action1();
+		_isKeyboard = context.control.device.name == "Keyboard";
 	}
 	private void HandleAction2Input(InputAction.CallbackContext context)
 	{
 		_pawn.Action2();
+		_isKeyboard = context.control.device.name == "Keyboard";
 	}
 }
