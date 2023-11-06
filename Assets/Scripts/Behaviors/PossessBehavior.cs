@@ -10,6 +10,17 @@ public class PossessBehavior : MonoBehaviour
 	private GameObject _possessableObject = null;
 	private PlayerPawn _possessablePawn = null;
 
+	private bool _isActive;
+	public bool IsActive
+	{
+		get { return _isActive; }
+		set
+		{
+			_isActive = value;
+			SetShowInput(_isActive);
+		}
+	}
+
 	// Get the pawn of this gameobject
 	private void Awake()
 	{
@@ -24,7 +35,7 @@ public class PossessBehavior : MonoBehaviour
 		SetShowInput(false);
 		_possessableObject = other.gameObject;
 		_possessablePawn = _possessableObject.GetComponent<PlayerPawn>();
-		SetShowInput(true);
+		if (CanPossess()) SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
@@ -57,5 +68,14 @@ public class PossessBehavior : MonoBehaviour
 		{
 			comp.IsShown = isShown;
 		}
+	}
+	private bool CanPossess()
+	{
+		if (_pawn == null ||
+			_pawn.Controller == null ||
+			_possessablePawn == null)
+			return false;
+
+		return _isActive;
 	}
 }

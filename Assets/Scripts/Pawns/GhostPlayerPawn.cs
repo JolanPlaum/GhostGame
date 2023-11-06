@@ -33,6 +33,16 @@ public class GhostPlayerPawn : PlayerPawn
 		_gameMode = FindObjectOfType<GameMode>();
 	}
 
+	// Update to let the behaviors know whether they are active
+	private void Update()
+	{
+		if (_gameMode == null) return;
+		bool isOnGround = !(_jumpBehavior && _jumpBehavior.IsOnGround == false);
+
+		if (_possessBehavior)
+			_possessBehavior.IsActive = isOnGround && _gameMode.IsOverworld;
+	}
+
 	// Override base actions
 	public override void Move(Vector2 input)
 	{
