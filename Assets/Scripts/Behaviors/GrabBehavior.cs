@@ -7,12 +7,22 @@ public class GrabBehavior : MonoBehaviour
 	[SerializeField] private Transform _handPosition;
 	private const string GRAB_TAG = "Grab";
 	private GameObject _grabbableObject = null;
-	private bool _isActive = false;
 
 	private GameObject _heldObject = null;
 	public GameObject HeldObject
 	{
 		get { return _heldObject; }
+	}
+
+	private bool _isActive;
+	public bool IsActive
+	{
+		get { return _isActive; }
+		set
+		{
+			_isActive = value;
+			SetShowInput(_isActive);
+		}
 	}
 
 	// Drop any held object if switching to the overworld
@@ -21,8 +31,7 @@ public class GrabBehavior : MonoBehaviour
 		GameMode mode = FindObjectOfType<GameMode>();
 		if (mode != null)
 		{
-			mode.OnWorldChanged += WorldChanged;
-			WorldChanged(mode.IsOverworld);
+			mode.OnWorldChanged += DropHeldObject;
 		}
 	}
 
@@ -55,7 +64,7 @@ public class GrabBehavior : MonoBehaviour
     }
 
 	// Helper functions
-	private void DropHeldObject()
+	private void DropHeldObject(bool isOverworld = false)
 	{
 		if (_heldObject == null) return;
 
@@ -65,6 +74,7 @@ public class GrabBehavior : MonoBehaviour
 			Mathf.Round(_heldObject.transform.position.y),
 			Mathf.Round(_heldObject.transform.position.z));
 		_heldObject.transform.localRotation = Quaternion.identity;
+		if (_heldObject.TryGetComponent<Collider>(out var component)) component.enabled = true;
 		_heldObject = null;
 	}
 	private void GrabNearbyObject()
@@ -76,6 +86,7 @@ public class GrabBehavior : MonoBehaviour
 		_grabbableObject.transform.SetParent(_handPosition);
 
 		_heldObject = _grabbableObject;
+		if (_heldObject.TryGetComponent<Collider>(out var component)) component.enabled = false;
 		_grabbableObject = null;
 	}
 	private void SetShowInput(bool isShown)
@@ -83,19 +94,6 @@ public class GrabBehavior : MonoBehaviour
 		if (_grabbableObject && _grabbableObject.TryGetComponent<ShowInputFeedback>(out var comp))
 		{
 			comp.IsShown = isShown;
-		}
-	}
-	private void WorldChanged(bool isOverworld)
-	{
-		_isActive = !isOverworld;
-		if (_isActive == false)
-		{
-			DropHeldObject();
-			SetShowInput(false);
-		}
-		else
-		{
-			SetShowInput(true);
 		}
 	}
 }

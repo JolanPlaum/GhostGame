@@ -41,6 +41,9 @@ public class GhostPlayerPawn : PlayerPawn
 
 		if (_possessBehavior)
 			_possessBehavior.IsActive = isOnGround && _gameMode.IsOverworld;
+
+		if (_grabBehavior)
+			_grabBehavior.IsActive = isOnGround && !_gameMode.IsOverworld;
 	}
 
 	// Override base actions
