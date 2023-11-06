@@ -39,4 +39,17 @@ public class DoorBehavior : InteractableBehavior
 		// Set the door as open
 		_isOpen = true;
 	}
+	public override bool CanExecute(GameObject other)
+	{
+		// Check if the door is already open
+		if (_isOpen) return false;
+
+		// Check if other object has a matching key
+		GrabBehavior behavior = other.GetComponent<GrabBehavior>();
+		if (behavior == null) return false;
+		if (behavior.HeldObject == null) return false;
+		if (behavior.HeldObject.GetComponent<KeyID>() == null) return false;
+
+		return true;
+	}
 }

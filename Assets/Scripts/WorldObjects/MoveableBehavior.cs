@@ -125,6 +125,81 @@ public class MoveableBehavior : InteractableBehavior
 		}
 		if (_triggerCollider != null) _triggerCollider.enabled = true;
 	}
+	public override bool CanExecute(GameObject other)
+	{
+		// Null check
+		if (other == null) return false;
+		if (_rigidbody == null) return false;
+		if (_isMoving) return false;
+
+		// Calculate the direction from which the other object is pushing this one
+		Vector3 actualDirection = transform.position - other.transform.position;
+
+		// Shift direction to the closest xz-axis direction (force straight movement)
+		//  i.e. (-0.3, 0, 0.7) -> (0, 0, 1)
+		Vector3 moveDirection = Vector3.zero;
+		if (Mathf.Abs(actualDirection.x) >= Mathf.Abs(actualDirection.z))
+		{
+			moveDirection.x = actualDirection.x;
+		}
+		else
+		{
+			moveDirection.z = actualDirection.z;
+		}
+		moveDirection.Normalize();
+
+		// Don't move if this object will be obstructed by the world
+		if (_triggerCollider != null) _triggerCollider.enabled = false;
+		RaycastHit[] hits = _rigidbody.SweepTestAll(moveDirection, _moveDistance, QueryTriggerInteraction.Ignore);
+		if (_triggerCollider != null) _triggerCollider.enabled = true;
+		if (hits.Length > 0)
+		{
+			//Foreach hit:
+			// 1. Get the hit collider
+			// 2. Get the max/min bounds of the hit collider
+			// 3. Get the max/min bounds of this object's collider
+			// 4. Depending on the _moveDirection, check if X/Z are close to equal
+			// 5. Always check if Y are close to equal
+			foreach (RaycastHit hit in hits)
+			{
+				Vector3 min1 = _collider.bounds.min;
+				Vector3 max1 = _collider.bounds.max;
+				Vector3 min2 = hit.collider.bounds.min;
+				Vector3 max2 = hit.collider.bounds.max;
+
+				min1.x += 0.1f;
+				min1.y += 0.1f;
+				min1.z += 0.1f;
+
+				max1.x -= 0.1f;
+				max1.y -= 0.1f;
+				max1.z -= 0.1f;
+
+				if (moveDirection.x == 0f) // moving on Z
+				{
+					if (!(min1.x >= max2.x || max1.x <= min2.x))
+					{
+						if (!(min1.y >= max2.y || max1.y <= min2.y))
+						{
+							return false;
+						}
+					}
+				}
+				else if (moveDirection.z == 0f) // moving on X
+				{
+					if (!(min1.z >= max2.z || max1.z <= min2.z))
+					{
+						if (!(min1.y >= max2.y || max1.y <= min2.y))
+						{
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		return true;
+	}
 
 	// Helper function
 	private void StopMoving()

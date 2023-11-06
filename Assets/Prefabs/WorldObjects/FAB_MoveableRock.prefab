@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _moveDistance: 2
-  _triggerCollider: {fileID: 0}
+  _triggerCollider: {fileID: 7341265349181773615}
 --- !u!114 &8657232982724073823
 MonoBehaviour:
   m_ObjectHideFlags: 0
