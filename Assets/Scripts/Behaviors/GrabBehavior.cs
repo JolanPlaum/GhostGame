@@ -7,6 +7,7 @@ public class GrabBehavior : MonoBehaviour
 	[SerializeField] private Transform _handPosition;
 	private const string GRAB_TAG = "Grab";
 	private GameObject _grabbableObject = null;
+	private bool _isActive = false;
 
 	private GameObject _heldObject = null;
 	public GameObject HeldObject
@@ -20,7 +21,8 @@ public class GrabBehavior : MonoBehaviour
 		GameMode mode = FindObjectOfType<GameMode>();
 		if (mode != null)
 		{
-			mode.OnWorldChanged += DropHeldObject;
+			mode.OnWorldChanged += WorldChanged;
+			WorldChanged(mode.IsOverworld);
 		}
 	}
 
@@ -31,7 +33,7 @@ public class GrabBehavior : MonoBehaviour
 
 		SetShowInput(false);
 		_grabbableObject = other.gameObject;
-		SetShowInput(true);
+		if (_isActive) SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
@@ -48,12 +50,12 @@ public class GrabBehavior : MonoBehaviour
 		DropHeldObject();
 
 		// Grab any nearby grabbable object
-		GrabNearbyObject();
 		SetShowInput(false);
+		GrabNearbyObject();
     }
 
 	// Helper functions
-	private void DropHeldObject(bool isOverworld = false)
+	private void DropHeldObject()
 	{
 		if (_heldObject == null) return;
 
@@ -81,6 +83,19 @@ public class GrabBehavior : MonoBehaviour
 		if (_grabbableObject && _grabbableObject.TryGetComponent<ShowInputFeedback>(out var comp))
 		{
 			comp.IsShown = isShown;
+		}
+	}
+	private void WorldChanged(bool isOverworld)
+	{
+		_isActive = !isOverworld;
+		if (_isActive == false)
+		{
+			DropHeldObject();
+			SetShowInput(false);
+		}
+		else
+		{
+			SetShowInput(true);
 		}
 	}
 }
