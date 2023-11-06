@@ -32,7 +32,7 @@ public class JumpBehavior : MonoBehaviour
 
 		float offset = 0.1f;
 
-		_isOnGround = Physics.Raycast(transform.position + Vector3.up * offset, Vector3.down, offset * 2) && _rigidbody.velocity.y <= 0;
+		_isOnGround = Physics.Raycast(transform.position + Vector3.up * offset, Vector3.down, offset * 2) && _rigidbody.velocity.y <= 0.001f;
 	}
 
 	// Jump function
