@@ -46,11 +46,18 @@ public class GhostPlayerPawn : PlayerPawn
 
 		base.Jump();
 	}
+	public override void WorldSwitch()
+	{
+		if (_jumpBehavior && _jumpBehavior.IsOnGround == false) return;
+
+		base.WorldSwitch();
+	}
 
 	// World specific actions
 	public override void Action1()
 	{
 		if (_gameMode == null) return;
+		if (_jumpBehavior && _jumpBehavior.IsOnGround == false) return;
 
 		// Overworld behavior
 		if (_gameMode.IsOverworld)
@@ -75,6 +82,7 @@ public class GhostPlayerPawn : PlayerPawn
 	public override void Action2()
 	{
 		if (_gameMode == null) return;
+		if (_jumpBehavior && _jumpBehavior.IsOnGround == false) return;
 
 		// Overworld behavior
 		if (_gameMode.IsOverworld)
