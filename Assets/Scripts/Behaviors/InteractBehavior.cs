@@ -8,6 +8,17 @@ public class InteractBehavior : MonoBehaviour
 	private GameObject _interactableObject = null;
 	private InteractableBehavior _interactableBehavior = null;
 
+	private bool _isActive;
+	public bool IsActive
+	{
+		get { return _isActive; }
+		set
+		{
+			_isActive = value;
+			SetShowInput(_isActive);
+		}
+	}
+
 	// Check if this object is entering/exiting an interactable object
 	private void OnTriggerEnter(Collider other)
 	{
@@ -17,7 +28,7 @@ public class InteractBehavior : MonoBehaviour
 		_interactableObject = other.gameObject;
 
 		SetInteractableBehavior();
-		SetShowInput(true);
+		if (_isActive) SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
@@ -27,6 +38,13 @@ public class InteractBehavior : MonoBehaviour
 		_interactableObject = null;
 
 		SetInteractableBehavior();
+	}
+
+	// Update show input feedback based on if the current object is still interactable
+	private void LateUpdate()
+	{
+		if (CanInteract(_interactableObject) == false)
+			SetShowInput(false);
 	}
 
 	// Interact function
@@ -65,5 +83,13 @@ public class InteractBehavior : MonoBehaviour
 		{
 			comp.IsShown = isShown;
 		}
+	}
+	private bool CanInteract(GameObject go)
+	{
+		if (go == null ||
+			go.TryGetComponent<InteractableBehavior>(out var component) == false ||
+			component.CanExecute(gameObject) == false) return false;
+
+		return true;
 	}
 }

@@ -41,4 +41,8 @@ public class InteractableBehavior : MonoBehaviour
 	{
 
 	}
+	public virtual bool CanExecute(GameObject other)
+	{
+		return false;
+	}
 }
