@@ -57,6 +57,7 @@ public class MoveableBehavior : InteractableBehavior
 		// Null check
 		if (other == null) return;
 		if (_rigidbody == null) return;
+		if (_rigidbody.velocity.y < -0.00001f) return;
 		if (_isMoving) return;
 
 		// Calculate the direction from which the other object is pushing this one
@@ -130,6 +131,7 @@ public class MoveableBehavior : InteractableBehavior
 		// Null check
 		if (other == null) return false;
 		if (_rigidbody == null) return false;
+		if (_rigidbody.velocity.y < -0.00001f) return false;
 		if (_isMoving) return false;
 
 		// Calculate the direction from which the other object is pushing this one
