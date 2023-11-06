@@ -29,12 +29,15 @@ public class GrabBehavior : MonoBehaviour
 	{
 		if (other.tag != GRAB_TAG) return;
 
+		SetShowInput(false);
 		_grabbableObject = other.gameObject;
+		SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject != _grabbableObject) return;
 
+		SetShowInput(false);
 		_grabbableObject = null;
 	}
 
@@ -46,6 +49,7 @@ public class GrabBehavior : MonoBehaviour
 
 		// Grab any nearby grabbable object
 		GrabNearbyObject();
+		SetShowInput(false);
     }
 
 	// Helper functions
@@ -71,5 +75,12 @@ public class GrabBehavior : MonoBehaviour
 
 		_heldObject = _grabbableObject;
 		_grabbableObject = null;
+	}
+	private void SetShowInput(bool isShown)
+	{
+		if (_grabbableObject && _grabbableObject.TryGetComponent<ShowInputFeedback>(out var comp))
+		{
+			comp.IsShown = isShown;
+		}
 	}
 }

@@ -21,13 +21,16 @@ public class PossessBehavior : MonoBehaviour
 	{
 		if (other.tag != POSSESS_TAG) return;
 
+		SetShowInput(false);
 		_possessableObject = other.gameObject;
 		_possessablePawn = _possessableObject.GetComponent<PlayerPawn>();
+		SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject != _possessableObject) return;
 
+		SetShowInput(false);
 		_possessableObject = null;
 		_possessablePawn = null;
 	}
@@ -38,11 +41,21 @@ public class PossessBehavior : MonoBehaviour
 		if (_pawn == null || _pawn.Controller == null) return;
 
 		_pawn.Controller.SwitchPawn(_possessablePawn);
+		SetShowInput(false);
 
 		// If this object is not controlled after switch, delete it
 		if (_pawn.Controller == null)
 		{
 			Destroy(gameObject);
+		}
+	}
+
+	// Helper function
+	private void SetShowInput(bool isShown)
+	{
+		if (_possessablePawn && _possessableObject && _possessableObject.TryGetComponent<ShowInputFeedback>(out var comp))
+		{
+			comp.IsShown = isShown;
 		}
 	}
 }

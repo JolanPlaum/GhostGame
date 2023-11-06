@@ -13,14 +13,17 @@ public class InteractBehavior : MonoBehaviour
 	{
 		if (other.tag != INTERACT_TAG) return;
 
+		SetShowInput(false);
 		_interactableObject = other.gameObject;
 
 		SetInteractableBehavior();
+		SetShowInput(true);
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject != _interactableObject) return;
 
+		SetShowInput(false);
 		_interactableObject = null;
 
 		SetInteractableBehavior();
@@ -37,6 +40,7 @@ public class InteractBehavior : MonoBehaviour
 		// (3.) Make player immovable for a period of time
 
 		_interactableBehavior.Execute(gameObject);
+		SetShowInput(false);
 	}
 
 	// Wrap interactable object switching in a function
@@ -52,5 +56,14 @@ public class InteractBehavior : MonoBehaviour
 
 		// Let the new behavior know it's been selected (mainly for player feedback)
 		if (_interactableBehavior) _interactableBehavior.IsSelected = true;
+	}
+
+	// Helper function
+	private void SetShowInput(bool isShown)
+	{
+		if (_interactableBehavior && _interactableObject && _interactableObject.TryGetComponent<ShowInputFeedback>(out var comp))
+		{
+			comp.IsShown = isShown;
+		}
 	}
 }

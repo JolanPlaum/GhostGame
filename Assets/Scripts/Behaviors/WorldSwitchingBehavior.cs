@@ -14,12 +14,20 @@ public class WorldSwitchingBehavior : MonoBehaviour
 		if (other.tag != WORLD_SWITCH_TAG) return;
 
 		_isInsideTrigger = true;
+		if (other.TryGetComponent<ShowInputFeedback>(out var comp))
+		{
+			comp.IsShown = true;
+		}
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.tag != WORLD_SWITCH_TAG) return;
 
 		_isInsideTrigger = false;
+		if (other.TryGetComponent<ShowInputFeedback>(out var comp))
+		{
+			comp.IsShown = false;
+		}
 	}
 
 	// Find game mode in the scene
